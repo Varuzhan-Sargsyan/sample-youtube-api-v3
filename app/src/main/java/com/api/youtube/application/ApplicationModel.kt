@@ -5,7 +5,7 @@ import com.api.youtube.R
 import com.api.youtube.lib.cache.SharedDataMap
 import com.api.youtube.lib.cache.SharedDataMapKey
 
-open class SingletonHolder<out T: Any, in A>(creator: (A) -> T) {
+open class SingletonObject<out T: Any, in A>(creator: (A) -> T) {
     private var creator: ((A) -> T)? = creator
     @Volatile private var instance: T? = null
     
@@ -35,7 +35,7 @@ open class SingletonHolder<out T: Any, in A>(creator: (A) -> T) {
 
 class ApplicationModel private constructor(private val application: Application) {
     
-    companion object : SingletonHolder<ApplicationModel, Application>(::ApplicationModel)
+    companion object : SingletonObject<ApplicationModel, Application>(::ApplicationModel)
     
     val sharedDataMap by lazy {
         SharedDataMap<SharedDataMapKey>(application.getSharedPreferences("ApplicationModel.dat", Context.MODE_PRIVATE))
